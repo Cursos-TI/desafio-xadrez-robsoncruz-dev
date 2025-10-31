@@ -1,28 +1,13 @@
 #include <stdio.h>
 
 /*
-  Desafio de Xadrez - Nível Novato (com menu simples)
-  Objetivo:
-    - Pedir ao usuário quantos movimentos cada peça fará.
-    - Sugerir a quantidade "padrão" do requisito (Torre=5, Bispo=5, Rainha=8).
-    - Validar valores muito grandes (limites simples pensando no tabuleiro 8x8).
-    - Imprimir, a cada casa, QUAL PEÇA andou e para QUAL LADO.
-  
-  Regras pedidas no desafio (sugestões do enunciado):
-    - Torre: 5 casas para a Direita (usar while)
-    - Bispo: 5 casas na diagonal Cima Direita (usar for)
-    - Rainha: 8 casas para a Esquerda (usar do-while)
-  
-  Observações (estilo iniciante):
-    - Código simples, sem matrizes de tabuleiro.
-    - Limites "caseiros" para não exagerar: 
-        Torre (reta): até 8 casas
-        Bispo (diagonal): até 7 casas
-        Rainha (qualquer direção): até 8 casas
-    - Se o usuário digitar um valor inválido, pedimos novamente.
+  Desafio de Xadrez - Nível Novato + Aventureiro
+  - Nível Novato: Torre, Bispo, Rainha com loops simples e menu.
+  - Nível Aventureiro: Cavalo em "L" tive necessidade de usar loop aninhados
 */
 
 int main() {
+    /* -------------------- Parte do Nível Novato -------------------- */
     /* SUGESTÕES do requisito */
     const int SUG_TORRE = 5;
     const int SUG_BISPO = 5;
@@ -38,7 +23,7 @@ int main() {
     int mov_rainha = 0;
 
     /* -------------------- MENU/ENTRADAS -------------------- */
-    printf("===== MENU DO DESAFIO XADREZ (Nivel Novato) =====\n");
+    printf("===== MENU DO DESAFIO XADREZ =====\n");
     printf("Sugerido (do enunciado): Torre=%d, Bispo=%d, Rainha=%d\n", SUG_TORRE, SUG_BISPO, SUG_RAINHA);
     printf("Obs.: Limites simples -> Torre: até %d | Bispo: até %d | Rainha: até %d\n", LIM_TORRE, LIM_BISPO, LIM_RAINHA);
     printf("\n");
@@ -125,6 +110,49 @@ int main() {
         } while (passo_rainha < mov_rainha);
     } else {
         printf("Rainha: sem movimento.\n");
+    }
+
+    /* ==================== Nível Aventureiro: CAVALO ==================== */
+    /*
+       Requisito: mover o Cavalo em "L"
+       - Duas casas para baixo
+       - Uma casa para a esquerda
+       - Usar loops aninhados: um for + (while ou do-while)
+       - Imprimir a direção a cada casa: "Baixo", "Baixo", "Esquerda"
+       - Valores definidos no código como variáveis/constantes
+    */
+
+    /* Separador visual para os movimentos do Cavalo */
+    printf("\n");
+
+    /* Quantidades definidas no código */
+    const int CAVALO_BAIXO = 2;    /* duas casas para baixo */
+    const int CAVALO_ESQ = 1;      /* uma casa para a esquerda */
+
+    printf("===== Movimento do CAVALO =====\n");
+
+    /* LOOPS ANINHADOS:
+       - for: itera sobre as "fases" do L (fase 0 = baixo, fase 1 = esquerda)
+       - while: repete a quantidade de passos em cada fase
+    */
+    int fase;              /* 0 = parte vertical (baixo), 1 = parte horizontal (esquerda) */
+    for (fase = 0; fase < 2; fase = fase + 1) {
+        int passos_da_fase;
+        if (fase == 0) {
+            passos_da_fase = CAVALO_BAIXO;  /* 2 passos para baixo */
+        } else {
+            passos_da_fase = CAVALO_ESQ;    /* 1 passo para esquerda */
+        }
+
+        int cont = 0;
+        while (cont < passos_da_fase) {
+            if (fase == 0) {
+                printf("Cavalo: Baixo\n");
+            } else {
+                printf("Cavalo: Esquerda\n");
+            }
+            cont = cont + 1;
+        }
     }
 
     printf("\n===== FIM =====\n");
